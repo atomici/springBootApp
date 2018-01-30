@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+
+    <tr th:each="aut : ${authors}">
+        <td th:text="${aut.id}">123</td>
+        <td th:text="${aut.firstName}">Spring in action</td>
+        <td th:text="${aut.lastName}">Hello</td>
+
+    </tr>
+</table>
+
+</body>
+</html>

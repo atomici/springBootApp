@@ -28,9 +28,16 @@ public class AuthorController {
         model.addAttribute("authors", authorService.getAuthorByFirstName(name) );
         return "authors";
     }
+
     @GetMapping("/authors/id/{id}")
     public String getAllAthors(@PathVariable Long id, Model model) {
         model.addAttribute("authors", authorService.getAuthorById(id) );
         return "authors";
+    }
+
+    @GetMapping("/authors/{id}/delete")
+    public String deleteAuthorById(@PathVariable Long id){
+        authorService.deleteAuthorById(id);
+        return "redirect:/authors";
     }
 }

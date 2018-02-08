@@ -9,22 +9,17 @@ import java.util.Optional;
 
 @Service
 public class AuthorService {
-
+    private AuthorRepository authorRepository;
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
-    private AuthorRepository authorRepository;
-
     public Iterable<Author> getAllAthors(){
         return authorRepository.findAll();
     }
-
     public Author getAuthorByFirstName(String name){
         return authorRepository.findByFirstName(name);
     }
-
-    public Author getAuthorById(Long id){
-        return authorRepository.findById(id).get();
-    }
+    public Author getAuthorById(Long id){ return authorRepository.findById(id).get(); }
+    public void deleteAuthorById(Long id) {authorRepository.deleteById(id);}
 }

@@ -26,6 +26,12 @@ public class BookControler {
         return "books";
     }
 
+    @GetMapping("/books/list")
+    public String getaaa(Model model) {
+        model.addAttribute("books", bookService.iterableList());
+        return "books";
+    }
+
     @GetMapping("/books/{title}")
     public String getBookByTitle(@PathVariable String title, Model model) {
         model.addAttribute("books", bookService.getBookByTitle(title));

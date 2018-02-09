@@ -2,7 +2,6 @@ package guru.springframework.spring5webapp.services;
 
 import guru.springframework.spring5webapp.model.Author;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

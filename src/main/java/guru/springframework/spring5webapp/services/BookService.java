@@ -4,11 +4,9 @@ import guru.springframework.spring5webapp.model.Book;
 import guru.springframework.spring5webapp.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,30 +19,39 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Iterable<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public List<Book> getAllBooks() {
+        List<Book> list = new ArrayList<>();
+        bookRepository.findAll().forEach(list::add);
+        return list;
     }
 
     public Book getBookByTitle(String title) {
-        return bookRepository.findByTitle(title);
+        Optional<Book> opt = bookRepository.findByTitle(title);
+        return opt.orElse(null);
     }
 
     public Book getBookById(Long id) {
-        return bookRepository.findById(id).get();
+        Optional<Book> opt = bookRepository.findById(id);
+        return opt.orElse(null);
     }
 
     public void deleteBookById(Long id) {
+        if (bookRepository.findById(id).isPresent()) ;
         bookRepository.deleteById(id);
     }
 
     public List<Book> iterableList() {
-        Iterable<Book> iterable = bookRepository.findAll();
-        List<Book> book = new ArrayList<>();
-        iterable.forEach(book::add);
+        List<Book> books = new ArrayList<>();
+        bookRepository.findAll().forEach(books::add);
+        books = books
+                .stream()
+                .filter(a -> a.getId() < 5)
+                .collect(Collectors.toList());
 
+
+        //java 8 modifying a list by criteria
         List<String> list = Arrays.asList("a", "b", "", "c", "");
         List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 1, 2, 3, 4);
-
 
         list = list
                 .stream()
@@ -55,16 +62,13 @@ public class BookService {
 
         list1 = list1
                 .stream()
-                .filter(a -> a > 2)
+                .map(a -> a * 2)
+                .distinct()
                 .collect(Collectors.toList());
 
         System.out.println(list1);
-        book = book
-                .stream()
-                .filter(a -> a.getId() > 3)
-                .collect(Collectors.toList());
 
-        return book;
+        return books;
     }
 }
 

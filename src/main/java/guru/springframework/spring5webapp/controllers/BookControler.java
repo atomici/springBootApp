@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class BookControler {
 
- private BookService bookService;
+    private BookService bookService;
 
     public BookControler(BookService bookService) {
         this.bookService = bookService;
@@ -45,7 +45,7 @@ public class BookControler {
     }
 
     @GetMapping("/books/{id}/delete")
-    public String deleteBookById(@PathVariable Long id){
+    public String deleteBookById(@PathVariable Long id) {
         bookService.deleteBookById(id);
         return "redirect:/books";
     }
